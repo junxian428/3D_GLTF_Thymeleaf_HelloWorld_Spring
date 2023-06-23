@@ -10,6 +10,59 @@
   margin: 0;
   overflow: hidden;
 }
+
+#myButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+
+        #myButton2 {
+            position: absolute;
+            top: 70px;
+            left: 10px;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            display: none;
+            min-width: 100px;
+            padding: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            position: absolute;
+            top: 10px;
+            left: 90px;
+        }
+
+        .show {
+            display: block;
+            left: calc(100% + 10px);
+            top: 0;
+        }
+
+        
+        .myChart {
+          position: absolute;
+            right: 50px;
+            top: 70px;
+            width: 250px !important;;
+            height: 200px !important;;
+            /* Add any additional styling for the container */
+        }
+
+
+
+        .myChart2 {
+          position: absolute;
+            right: 50px;
+            top: 300px;
+            width: 250px !important;;
+            height: 200px !important;;
+            /* Add any additional styling for the container */
+        }
     </style>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -20,9 +73,25 @@
     <img th:src="@{/images/example.png}" alt="Example Image">
 
     -->
+    <button id="myButton" class="btn btn-primary">Button</button>
+    <div id="dropdown" style="display: none;" class="dropdown-content">
+      <select>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+          <option value="option3">Option 3</option>
+      </select>
+  </div>
 
+
+    <button id="myButton2" class="btn btn-primary">Button</button>
+
+
+      <!-- Place your bar chart code or content here -->
+      <canvas id="myChart" class="myChart"></canvas>
+      <canvas id="myChart2" class="myChart2"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script type="module" th:inline="javascript">
     import {
@@ -41,7 +110,68 @@
     import { OrbitControls } from 'https://unpkg.com/three@0.120.1/examples/jsm/controls/OrbitControls.js'
     import { GLTFLoader } from 'https://unpkg.com/three@0.120.1/examples/jsm/loaders/GLTFLoader.js'
 
+    
     let scene, camera, renderer;
+
+    const button = document.getElementById('myButton');
+        const dropdown = document.getElementById('dropdown');
+
+        button.addEventListener('click', function() {
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        });
+
+
+
+
+
+        //
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4'],
+            datasets: [{
+                label: 'Bar Chart',
+                data: [10, 20, 30, 40],
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+
+    // Chart 2
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
+    const chart2 = new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['Label A', 'Label B', 'Label C'],
+            datasets: [{
+                label: 'Chart 2',
+                data: [10, 20, 70],
+                backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 159, 64, 0.6)'],
+                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+
+        //
  function init() {
 
       scene = new Scene();
@@ -193,6 +323,9 @@ const mouse = new THREE.Vector2();
 
     if(intersects[0].object.name == "Text"){
       alert("Text");
+           // Access the bar material and update its color
+           temperatureBar.set(0x00ff00); // Set the new color, e.g., green
+    
     }
 
 

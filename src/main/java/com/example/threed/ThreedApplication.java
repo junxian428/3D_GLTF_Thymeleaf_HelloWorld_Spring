@@ -18,7 +18,7 @@ public class ThreedApplication {
     @GetMapping("/")
     public String home(Model model) {
         // Add data to the model to be used in the template
-        model.addAttribute("message", "England is my City!");
+        model.addAttribute("message", "Smart City 3D!");
 
         // Return the name of the Thymeleaf template
         return "home";
