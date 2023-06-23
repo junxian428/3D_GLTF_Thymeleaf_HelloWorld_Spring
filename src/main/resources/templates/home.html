@@ -99,7 +99,7 @@ const pointer = new THREE.Vector2();
         const temperatureBar = new THREE.Mesh(barGeometry, barMaterial);
 
         // Set the position of the temperature bar
-        temperatureBar.position.set(50, 50, -10); // Customize the position as needed
+        temperatureBar.position.set(100, 100, 100); // Customize the position as needed
 
         // Add the temperature bar to the scene
         scene.add(temperatureBar);
@@ -124,8 +124,8 @@ const sprite = new THREE.Sprite(material);
 sprite.scale.set(100, 250, 100); // Customize the scale of the sprite
 
 // Set the position of the sprite
-sprite.position.set(0, 0, 0); // Customize the position of the sprite
-
+sprite.position.set(150, 150, 150); // Customize the position of the sprite
+sprite.name= "Text";
 // Add the sprite to the scene
 scene.add(sprite);
 // Create a dot geometry and material
@@ -181,7 +181,21 @@ const mouse = new THREE.Vector2();
 
   if (intersects.length > 0) {
     console.log('Intersection:', intersects[0].object);
-    
+   // console.log(intersects.position);
+        // Check if the name of the intersected object is "text"
+        if (intersects[0].object instanceof THREE.Mesh) {
+      console.log('Intersection with a Mesh object');
+      // Perform actions specific to Mesh objects
+    } else if (intersects[0].object instanceof THREE.Group) {
+      console.log('Intersection with a Group object');
+      // Perform actions specific to Group objects
+    } 
+
+    if(intersects[0].object.name == "Text"){
+      alert("Text");
+    }
+
+
     // Do something with the intersected object
     // Check if any coordinate of the intersection point is greater than 50
 
